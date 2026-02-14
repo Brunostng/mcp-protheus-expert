@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": [
+    "mcp-protheus-expert"
+  ],
+  "enableAllProjectMcpServers": true
+}

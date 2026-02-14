@@ -1,0 +1,225 @@
+[
+  {
+    "id": "Normativa 3.1",
+    "tipo": "required",
+    "severidade": "BAIXA",
+    "descricao": "Obrigatorio cabecalho Protheus.doc nas rotinas",
+    "linguagem": "advpl"
+  },
+  {
+    "id": "Normativa 3.3",
+    "severidade": "BAIXA",
+    "descricao": "Nao deixar trechos de codigo comentado (linhas iniciadas com // contendo comandos)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "^\\s*//\\s*(if|for|do while|while|return|reclock|dbseek|dbgoto|dbusearea|begin transaction|endsql)\\b"
+  },
+  {
+    "id": "Normativa 3.4",
+    "severidade": "BAIXA",
+    "descricao": "Nao ultrapassar 250 caracteres por linha (evitar barra horizontal). Usar quebra com ';'",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "padrao": "^.{251,}$"
+  },
+  {
+    "id": "Normativa 3.16",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar macro substituicao &(...) (usar FieldPut/FieldGet)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "&\\("
+  },
+  {
+    "id": "Normativa 3.17-1",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar EVal() (ultimo caso)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "contains",
+    "padrao": "EVal("
+  },
+  {
+    "id": "Normativa 3.17-2",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar aEval() (ultimo caso)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "contains",
+    "padrao": "aEval("
+  },
+  {
+    "id": "Normativa 3.17-3",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar dbEval() (ultimo caso)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "contains",
+    "padrao": "dbEval("
+  },
+  {
+    "id": "Normativa 3.19",
+    "tipo": "conditional",
+    "severidade": "MEDIA",
+    "descricao": "Fonte com classes: se houver Class no diff, deve existir User Function Dummy no diff",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "if": {
+      "match": "regex",
+      "ignore_case": true,
+      "padrao": "\\bClass\\b"
+    },
+    "then_required": "^\\s*User\\s+Function\\s+",
+    "then_forbidden": null
+  },
+  {
+    "id": "Normativa 3.20",
+    "severidade": "MEDIA",
+    "descricao": "Em classes, usar self:Propriedade ao inves de ::Propriedade",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "padrao": "::[A-Za-z_][A-Za-z0-9_]*"
+  },
+  {
+    "id": "Normativa 3.21-1",
+    "severidade": "ALTA",
+    "descricao": "Nao permitido variavel global (Public)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "^\\s*public\\s+"
+  },
+  {
+    "id": "Normativa 3.21-2",
+    "severidade": "ALTA",
+    "descricao": "Nao permitido variavel estatica (Static) no escopo global",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "^\\s*static\\s+"
+  },
+  {
+    "id": "Normativa 3.21-3",
+    "severidade": "ALTA",
+    "descricao": "Uso de Private deve ser justificado (regra automatica: acusa toda ocorrencia)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "\\bprivate\\b"
+  },
+  {
+    "id": "Normativa 3.23",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar nome de variavel com mais de 10 caracteres (limitacao ADVPL)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "\\b(local|private|public)\\s+[A-Za-z][A-Za-z0-9_]{10,}\\b"
+  },
+  {
+    "id": "Normativa 3.25",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar User Function com mais de 8 caracteres (desconsiderando U_)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "^\\s*user\\s+function\\s+[A-Za-z_][A-Za-z0-9_]{9,}\\s*\\("
+  },
+  {
+    "id": "Normativa 3.27",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar Static Function com mais de 10 caracteres",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "^\\s*static\\s+function\\s+[A-Za-z_][A-Za-z0-9_]{11,}\\s*\\("
+  },
+  {
+    "id": "Normativa 3.28",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar StaticCall",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "contains",
+    "padrao": "StaticCall("
+  },
+  {
+    "id": "Normativa 3.32",
+    "severidade": "ALTA",
+    "descricao": "Nao acessar diretamente tabelas SX* (dicionario de dados) ex: SX3->X3_CAMPO",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "\\bSX[0-9A-Z]{1,2}->\\b"
+  },
+  {
+    "id": "Normativa 3.42",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar funcoes obsoletas: AXCadastro/AXAltera/AXDelete/NewGetDados/CriaTrab/DbSetFilter",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "\\b(AXCadastro|AXAltera|AXDelete|NewGetDados|CriaTrab|DbSetFilter)\\b"
+  },
+  {
+    "id": "Normativa 3.46",
+    "severidade": "ALTA",
+    "descricao": "Nao usar TCSqlExec() para Insert/Merge/Update/Delete",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "contains",
+    "padrao": "TCSqlExec("
+  },
+  {
+    "id": "Normativa 3.74",
+    "severidade": "ALTA",
+    "descricao": "Nao utilizar TcQuery() (usar DbUseArea + TcGenQry ou Embedded SQL)",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "contains",
+    "padrao": "TcQuery("
+  },
+  {
+    "id": "Normativa 3.52",
+    "severidade": "ALTA",
+    "descricao": "Nao fazer SELECT * nas querys",
+    "linguagem": "sql",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "\\bselect\\s+\\*\\b"
+  },
+  {
+    "id": "Normativa 3.59",
+    "severidade": "ALTA",
+    "descricao": "Nao usar D_E_L_E_T_ = '' (Oracle interpreta como NULL)",
+    "linguagem": "sql",
+    "alvo": "added",
+    "match": "regex",
+    "ignore_case": true,
+    "padrao": "D_E_L_E_T_\\s*=\\s*''"
+  },
+  {
+    "id": "Normativa 4.1",
+    "severidade": "MEDIA",
+    "descricao": "Linux: evitar path Windows '\\\\' sem tratamento IsSrvUnix()",
+    "linguagem": "advpl",
+    "alvo": "added",
+    "match": "regex",
+    "padrao": "\"\\\\[A-Za-z0-9_]\""
+  }
+]
