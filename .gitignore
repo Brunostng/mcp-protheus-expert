@@ -1,0 +1,34 @@
+# Secrets / env
+.env
+*.env
+
+# Claude local config (nunca versionar)
+claude_desktop_config.json
+**/claude_desktop_config.json
+
+# Local caches / logs
+.cache/
+cache/
+*.log
+logs/
+
+# Node
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+
+# Windows / misc
+Thumbs.db
+.DS_Store
