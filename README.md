@@ -175,31 +175,42 @@ claude mcp add mcp-protheus-expert \
 
 ### Opcao 2: Configuracao manual (Claude Desktop)
 
-Adicione ao seu `claude_desktop_config.json`:
+Localize e edite o arquivo `claude_desktop_config.json` do seu Claude Desktop e adicione a configuracao do servidor MCP:
+
+> **Onde encontrar o arquivo:**
+> - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+> - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "mcp-protheus-expert": {
       "command": "node",
-      "args": ["C:\\caminho\\para\\mcp-protheus-expert\\dist\\server.js"],
+      "args": [
+        "SEU CAMINHO DO EXECUTAVEL server.js"
+      ],
       "env": {
-        "REPO_HML": "C:\\protheus\\repositorio-hml",
-        "REPO_PRD": "C:\\protheus\\repositorio-prd",
-        "REPO_TOTVS_STANDARD": "C:\\protheus\\totvs-standard",
-        "PYTHON_EXE": "python",
-        "NORMATIVE_DOCX_PATH": "C:\\protheus\\docs\\normativa_dev.docx",
-        "BITBUCKET_USER": "seu_usuario",
-        "BITBUCKET_APP_PASSWORD": "sua_app_password",
-        "BITBUCKET_WORKSPACE": "seu_workspace",
-        "BITBUCKET_REPO_HML": "protheus-hml",
-        "BITBUCKET_REPO_PRD": "protheus-prd",
+        "NODE_ENV": "production",
+        "REPO_HML": "SEU CAMINHO DO REPOSITORIO DE HOMOLOGACAO",
+        "REPO_PRD": "SEU CAMINHO DO REPOSITORIO DE PRODUCAO",
+        "REPO_TOTVS_STANDARD": "SEU CAMINHO DO REPOSITORIO PADRAO TOTVS",
+        "PYTHON_EXE": "SEU CAMINHO DO EXECUTAVEL python.exe",
+        "BITBUCKET_USER": "SEU USUARIO DO BITBUCKET",
+        "BITBUCKET_APP_PASSWORD": "SUA SENHA DE APLICATIVO DO BITBUCKET",
+        "BITBUCKET_WORKSPACE": "SEU ESPACO DE TRABALHO DO BITBUCKET",
+        "BITBUCKET_REPO_HML": "SEU NOME DE REPOSITORIO DE HOMOLOGACAO NO BITBUCKET",
+        "BITBUCKET_REPO_PRD": "SEU NOME DE REPOSITORIO DE PRODUCAO NO BITBUCKET",
+        "NORMATIVE_DOCX_PATH": "SEU CAMINHO DO DOCUMENTO NORMATIVO .docx",
+        "ENABLE_FILE_CACHE": "true",
+        "CACHE_TTL_SECONDS": "3600",
         "MCP_DEBUG": "1"
       }
     }
   }
 }
 ```
+
+> Substitua os valores em maiusculo pelos caminhos e credenciais do seu ambiente. Apos salvar, reinicie o Claude Desktop para que as ferramentas fiquem disponiveis.
 
 ### Verificando a conexao
 
