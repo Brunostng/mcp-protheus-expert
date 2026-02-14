@@ -6,9 +6,10 @@
 ![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-blueviolet)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-**Servidor MCP especializado para desenvolvimento TOTVS Protheus** — code review automatizado, analise de rotinas, consulta a normativa, documentacao TDN e integracao Bitbucket.
+**Servidor MCP especializado para desenvolvimento TOTVS Protheus** — code review automatizado, analise de rotinas, consulta a normativa, documentacao TDN e integracao com versionadores.
 
 > Projetado para **Claude Code** (CLI da Anthropic), mas compativel com qualquer LLM que suporte o protocolo MCP.
+> A integracao de versionador utiliza **Bitbucket** como referencia, mas a arquitetura e adaptavel para **GitHub**, **GitLab**, **Azure DevOps** ou qualquer outro provedor.
 
 ---
 
@@ -47,7 +48,7 @@ Este projeto oferece **5 ferramentas especializadas** para o dia a dia de quem d
 | **RelatorioRotinaTool** | Analisa rotinas Protheus, gera relatorios Markdown com diagramas Mermaid e busca rotinas por tabela |
 | **Code Review Protheus** | Executa code review automatizado com 24 regras, gera relatorio HTML interativo |
 | **Normativa** | Consulta o documento normativo de desenvolvimento (.docx) |
-| **Bitbucket Protheus** | Lista PRs abertos e commits de PRs no Bitbucket Cloud |
+| **Bitbucket Protheus** | Lista PRs abertos e commits de PRs (Bitbucket Cloud — adaptavel para outros versionadores) |
 | **Consulta TDN** | Busca documentacao oficial de funcoes e classes no TDN TOTVS |
 
 **Stack tecnologica:** TypeScript (servidor MCP) + Python (engine de code review)
@@ -91,7 +92,7 @@ graph LR
 - **Python** 3.10 ou superior (para o code review)
 - **Git** instalado e configurado
 - **Repositorios Protheus clonados localmente** (HML e/ou PRD)
-- **Credenciais Bitbucket** (App Password) — opcional, apenas para a ferramenta Bitbucket
+- **Credenciais do versionador** (Bitbucket App Password por padrao) — opcional, apenas para a ferramenta de integracao com versionador
 - **Documento normativo** (.docx) — opcional, apenas para a ferramenta Normativa
 
 ---
@@ -318,6 +319,8 @@ Consulta o documento normativo de desenvolvimento (.docx), extraindo apenas as *
 
 Integra com a API do Bitbucket Cloud para listar PRs abertos e commits de PRs, selecionando o repositorio automaticamente pelo ambiente (HML ou PRD).
 
+> **Adaptavel para outros versionadores:** A implementacao atual utiliza a API do Bitbucket Cloud como referencia, mas a arquitetura modular do projeto permite adaptar facilmente para **GitHub** (API REST/GraphQL), **GitLab** (API REST), **Azure DevOps** (API REST) ou qualquer outro provedor de repositorios Git. Basta criar uma nova ferramenta seguindo a interface `McpTool` e ajustar as chamadas de API conforme a documentacao do provedor desejado.
+
 **Acoes:**
 
 | Action | Descricao |
@@ -530,6 +533,19 @@ import suaFerramenta from "./tools/SuaFerramenta.js";
 ```
 
 3. Compile com `npm run build`
+
+### Adaptando o versionador (GitHub, GitLab, Azure DevOps)
+
+A ferramenta `bitbucket_protheus` foi construida para Bitbucket Cloud, mas voce pode criar uma versao para outro provedor. O fluxo e simples:
+
+1. Duplique `src/tools/bitbucketTool.ts` como base (ex: `githubTool.ts`)
+2. Substitua as chamadas da API do Bitbucket pelas do provedor desejado:
+   - **GitHub:** `https://api.github.com/repos/{owner}/{repo}/pulls`
+   - **GitLab:** `https://gitlab.com/api/v4/projects/{id}/merge_requests`
+   - **Azure DevOps:** `https://dev.azure.com/{org}/{project}/_apis/git/repositories/{repo}/pullrequests`
+3. Ajuste a autenticacao (token Bearer, PAT, etc.)
+4. Registre a nova ferramenta em `src/toolRegistry.ts`
+5. Adicione as variaveis de ambiente correspondentes no `.env`
 
 ### Adicionando regras de code review
 
